@@ -1,0 +1,22 @@
+gemini-default:
+  provider: gemini
+  model: gemini-2.5-flash
+
+gemini-cold:
+  provider: gemini
+  model: gemini-2.0-flash
+  temperature: 0.0
+
+gemini-crazy:
+  provider: gemini
+  model: gemini-2.5-flash
+  temperature: 2.0
+
+openai-default:
+  provider: openai
+  model: gpt-4.1
+
+ollama-gemma3:
+  provider: ollama
+  model: gemma3
+
