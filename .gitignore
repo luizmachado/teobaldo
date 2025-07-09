@@ -1,0 +1,61 @@
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Virtual environment
+.venv/
+env/
+venv/
+
+# Distribution / packaging
+build/
+dist/
+*.egg-info/
+
+# Logs
+*.log
+
+# Python specific
+*.pyc
+*.pyo
+*.pyd
+
+# IDEs and editors
+.vscode/
+.idea/
+*.swp
+
+# Test outputs
+htmlcov/
+.coverage
+.tox/
+.nox/
+.pytest_cache/
+.cache/
+.junit.xml
+
+# mypy
+.mypy_cache/
+.dmypy.json
+
+# pyright
+pyrightconfig.json
+
+# FastAPI/Uvicorn auto reload cache
+reload.db
+
+# Local dev
+.env
+.env.*
+
+# Docker
+*.pid
+*.pid.lock
+
+# macOS
+.DS_Store
+
+# System files
+Thumbs.db
+
