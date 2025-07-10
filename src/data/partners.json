@@ -1,0 +1,77 @@
+{
+  "estabelecimentos": [
+    {
+      "idEstabelecimento": 101,
+      "nome": "Posto Shell Av. Paulista",
+      "tipo": "Posto de Combustível",
+      "localizacao": {
+        "endereco": "Avenida Paulista, 1500, Bela Vista, São Paulo - SP, 01310-200",
+        "latitude": -23.5613,
+        "longitude": -46.6565
+      },
+      "horarioFuncionamento": "24 horas",
+      "servicosAceitos": ["TAG", "Multiabastece_Cartao", "Multiabastece_QRCode"]
+    },
+    {
+      "idEstabelecimento": 102,
+      "nome": "Estacionamento Shopping Morumbi",
+      "tipo": "Estacionamento",
+      "localizacao": {
+        "endereco": "Avenida Roque Petroni Júnior, 1089, Jardim das Acácias, São Paulo - SP, 04707-900",
+        "latitude": -23.622,
+        "longitude": -46.6977
+      },
+      "horarioFuncionamento": "10:00 - 22:00",
+      "servicosAceitos": ["TAG"]
+    },
+    {
+      "idEstabelecimento": 103,
+      "nome": "McDonald's Drive-Thru Marginal Tietê",
+      "tipo": "Drive-Thru",
+      "localizacao": {
+        "endereco": "Avenida Marginal Tietê, 1234, Limão, São Paulo - SP, 02701-000",
+        "latitude": -23.5145,
+        "longitude": -46.6713
+      },
+      "horarioFuncionamento": "09:00 - 05:00",
+      "servicosAceitos": ["TAG"]
+    },
+    {
+      "idEstabelecimento": 104,
+      "nome": "Posto Ipiranga Bandeirantes",
+      "tipo": "Posto de Combustível",
+      "localizacao": {
+        "endereco": "Rodovia dos Bandeirantes, km 34, Caieiras - SP, 07700-000",
+        "latitude": -23.3792,
+        "longitude": -46.7462
+      },
+      "horarioFuncionamento": "24 horas",
+      "servicosAceitos": ["Multiabastece_Cartao", "Multiabastece_QRCode"]
+    },
+    {
+      "idEstabelecimento": 105,
+      "nome": "Praça de Pedágio Ecovias Imigrantes",
+      "tipo": "Pedágio",
+      "localizacao": {
+        "endereco": "Rodovia dos Imigrantes, km 32, São Bernardo do Campo - SP, 09835-900",
+        "latitude": -23.795,
+        "longitude": -46.6087
+      },
+      "horarioFuncionamento": "24 horas",
+      "servicosAceitos": ["TAG"]
+    },
+    {
+      "idEstabelecimento": 106,
+      "nome": "Garagem Central Rio",
+      "tipo": "Estacionamento",
+      "localizacao": {
+        "endereco": "Rua do Senado, 200, Centro, Rio de Janeiro - RJ, 20231-004",
+        "latitude": -22.9108,
+        "longitude": -43.1823
+      },
+      "horarioFuncionamento": "07:00 - 23:00",
+      "servicosAceitos": ["TAG"]
+    }
+  ]
+}
+
