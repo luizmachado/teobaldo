@@ -43,5 +43,5 @@ Algumas das soluções:
 * Gerar insights a partir das despesas com os cartões Flex
 * 
 
-## Memória personalizada
-
+## Ideia 1 - Memória personalizada
+A sem parar é uma empresa de mobilidade urbana e pagamento, possui diversas soluções que facilitam a vida daqueles que estão trafegando, seja de carro próprio ou frota logística. A paritir do assitente do SuperApp Sem Parar, o motorista poderá obter rotas com sugestões personalizadas para cada usuário. A partir de uma memória de longo prazo, o modelo sugerirá novas possibilidades para tentar alcançar os clientes para novas possibilidades, além de servi-lo com dicas de cunhos diversos.
