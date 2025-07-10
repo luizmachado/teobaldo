@@ -1,4 +1,4 @@
-from typing import TypedDict, Annotated
+from typing import TypedDict, Annotated, NotRequired
 from langchain_core.messages import BaseMessage
 from operator import add
 
