@@ -8,7 +8,7 @@ class LLMFactory:
         with open(config_path, "r") as f:
             self.configs = yaml.safe_load(f)
 
-    def get_model(self, name: str):
+    def get_model(self, name):
         if name not in self.configs:
             raise ValueError(f"Arquivo de configuração '{name}' não foi encontrado.")
 
