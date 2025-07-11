@@ -1,7 +1,6 @@
 import os
 import inspect
 from pathlib import Path
-from dotenv import load_dotenv
 from langchain_google_genai import ChatGoogleGenerativeAI
 from google.generativeai.types.safety_types import HarmCategory, HarmBlockThreshold
 
@@ -13,11 +12,7 @@ class GeminiLLM:
         safety_settings = kwargs.pop("safety_settings", {})
         safety_settings = self._parse_safety_settings(safety_settings)
 
-        # Carregar arquivo com variáveis de ambiente
-        env_path = Path(__file__).resolve().parents[3] / ".env"
-        load_dotenv(dotenv_path=env_path)
-
-        api_key = os.getenv("GEMINI_API_KEY")
+        api_key = os.environ.get("GEMINI_API_KEY")
         if not api_key:
             raise ValueError("Variável de ambiente GEMINI_API_KEY não está definida.")
 
