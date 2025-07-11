@@ -35,3 +35,19 @@ ollama-gemma3:
   provider: ollama
   model: gemma3
 
+embedding_model:
+  provider: ollama
+  model_name: "text-embedding-3-small"
+
+vector_store:
+  path: "src/data/vector_store"
+  collection_name: "user_preferences_memory"
+
+prompts:
+  memory_extraction:
+    input_variables: ["chat_history"]
+    template:
+      Analise o histórico de chat abaixo e extraia qualquer preferência do usuário que possa ser útil para interações futuras (ex: locais preferidos, tipo de comida, interesses, amigos, familiares etc.).
+      Histórico do Chat: {chat_history}
+      Se você encontrar uma ou mais preferências, liste-as de forma concisa. Se nenhuma preferência explícita for mencionada, responda exatamente com "N/A".
+
