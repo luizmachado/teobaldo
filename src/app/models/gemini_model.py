@@ -1,39 +1,40 @@
 import os
-import inspect
-from pathlib import Path
 from langchain_google_genai import ChatGoogleGenerativeAI
 from google.generativeai.types.safety_types import HarmCategory, HarmBlockThreshold
 
+class GeminiLLM(ChatGoogleGenerativeAI):
 
-class GeminiLLM:
     def __init__(self, **kwargs):
 
-        # Configurações de segurança (compliance)
-        safety_settings = kwargs.pop("safety_settings", {})
-        safety_settings = self._parse_safety_settings(safety_settings)
-
+        # Adicionar a chave de API
+    if "api_key" not in kwargs:
         api_key = os.environ.get("GEMINI_API_KEY")
         if not api_key:
-            raise ValueError("Variável de ambiente GEMINI_API_KEY não está definida.")
+            raise ValueError("A chave de API não foi passada como argumento nem definida na variável de ambiente GEMINI_API_KEY.")
+        kwargs["api_key"] = api_key
 
-        # Definir modelo padrão
-        model_name = kwargs.pop("model", "gemini-2.5-flash")  # valor padrão 
+        # Processar configuracoes de compliance
+        if "safety_settings" in kwargs:
+            safety_settings = kwargs.pop("safety_settings", {})
+            parsed_safety_settings = self._parse_safety_settings(safety_settings)
+            if parsed_safety_settings:
+                kwargs["safety_settings"] = parsed_safety_settings
 
-        # Instanciar modelo
+        if "model" not in kwargs:
+            kwargs["model"] = "gemini-2.5-flash"
+
         try:
-            self.model = ChatGoogleGenerativeAI(
-                    model=model_name,
-                    api_key=api_key,
-                    **kwargs)
+            super().__init__(**kwargs)
         except TypeError as e:
             raise ValueError(f"Erro ao instanciar ChatGoogleGenerativeAI: {e}")
 
-    # Função para converter dicionário em enum
     def _parse_safety_settings(self, safety_dict):
+
         if not isinstance(safety_dict, dict):
             return None
 
         parsed = {}
+
         for key, value in safety_dict.items():
             try:
                 category = getattr(HarmCategory, key)
@@ -42,7 +43,3 @@ class GeminiLLM:
             except AttributeError:
                 raise ValueError(f"Par inválido: {key}: {value}")
         return parsed
-
-    def invoke(self, messages):
-        return self.model.invoke(messages)
-
