@@ -1,6 +1,7 @@
 import yaml
 from pathlib import Path
 from app.models.gemini_model import GeminiLLM
+from app.models.ollama_model import OllamaLLM
 from langchain_core.prompts import PromptTemplate 
 
 
