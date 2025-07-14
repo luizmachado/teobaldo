@@ -34,10 +34,12 @@ openai-default:
 ollama-gemma3:
   provider: ollama
   model: gemma3
+  base_url: "http://localhost:11434"
 
 embedding_model:
   provider: ollama
-  model_name: "text-embedding-3-small"
+  model_name: nomic-embed-text 
+  base_url: "http://localhost:11434"
 
 vector_store:
   path: "src/data/vector_store"
@@ -46,8 +48,7 @@ vector_store:
 prompts:
   memory_extraction:
     input_variables: ["chat_history"]
-    template:
-      Analise o histórico de chat abaixo e extraia qualquer preferência do usuário que possa ser útil para interações futuras (ex: locais preferidos, tipo de comida, interesses, amigos, familiares etc.).
-      Histórico do Chat: {chat_history}
-      Se você encontrar uma ou mais preferências, liste-as de forma concisa. Se nenhuma preferência explícita for mencionada, responda exatamente com "N/A".
+    template: "Analise o histórico de chat abaixo e extraia qualquer preferência do usuário que possa ser útil para interações futuras (ex: locais preferidos, tipo de comida, interesses, amigos, familiares etc.)
+    Histórico do Chat: {chat_history}
+    Se você encontrar uma ou mais preferências, liste-as de forma concisa. Se nenhuma preferência explícita for mencionada, responda exatamente com 'N/A'."
 
