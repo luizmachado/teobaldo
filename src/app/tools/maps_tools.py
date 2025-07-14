@@ -17,7 +17,7 @@ headers = {
 }
 
 @tool
-def get_route_and_polyline_metric(origin, destination):
+def get_route_and_polyline(origin, destination):
     """
     Útil para  encontrar uma rota de carro entre um ponto de origem e um de destino.
     Esta ferramenta retorna os resultados no sistema métrico (quilômetros).
@@ -64,7 +64,7 @@ def get_route_and_polyline_metric(origin, destination):
         # Extrai a polyline codificada
         polyline = route["overview_polyline"]["points"]
         
-        return {"summary": summary, "polyline": polyline}
+        return {"origin": origin, "destination": destination, "summary": summary, "polyline": polyline}
 
     except requests.exceptions.RequestException as e:
         return {"error": f"Erro de conexão ao chamar a API do Google Maps: {e}"}
