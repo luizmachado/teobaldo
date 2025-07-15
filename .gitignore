@@ -59,3 +59,8 @@ reload.db
 # System files
 Thumbs.db
 
+# Arquivos SQLite e seus auxiliares
+src/data/conversations.sqlite
+src/data/conversations.sqlite-shm
+src/data/conversations.sqlite-wal
+src/vector_store/
