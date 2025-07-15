@@ -1,39 +1,57 @@
+import aiosqlite
 from langgraph.graph import StateGraph, END
 from app.agent.state import AgentState
-from app.agent.nodes import call_model, call_tools, update_long_term_memory
+from langgraph.prebuilt import ToolNode
+from app.agent.nodes import call_model, update_long_term_memory, call_tools_and_update_state
+from app.tools.maps_tools import get_route_and_polyline
+from app.tools.weather_tools import get_weather_forecast
+from app.tools.partner_tools import find_partners_on_route
+from langgraph.checkpoint.sqlite.aio import AsyncSqliteSaver
 
-def should_continue(state):
-    last_message = state["messages"][-1]
-    if hasattr(last_message, 'tool_calls') and last_message.tool_calls:
-        # Se o LLM chamar, vá para o nó de ferramentas
-        return "call_tools"
-    else:
-        # Se não há chamada de ferramenta.
-        return "update_memory"
 
-# Constrói o grafo
-workflow = StateGraph(AgentState)
 
-# Adiciona os nós
-workflow.add_node("call_model", call_model)
-workflow.add_node("call_tools", call_tools)
-workflow.add_node("update_memory", update_long_term_memory)
 
-# Define o ponto de entrada
-workflow.set_entry_point("call_model")
+async def get_agent_executor():
+    """ Criar e compilar grafo """
 
-# Adiciona as arestas
-workflow.add_conditional_edges(
-    "call_model",
-    should_continue,
-    {
-        "call_tools": "call_tools",
-        "update_memory": "update_memory",
-    }
-)
-# Volte para o modelo para ele analisar o resultado
-workflow.add_edge("call_tools", "call_model")
+    tools = [get_route_and_polyline, get_weather_forecast, find_partners_on_route]
+    tool_node = ToolNode(tools)
 
-# Após atualizar a memória, finalizar o grafo
-workflow.add_edge("update_memory", END)
-app_graph = workflow.compile()
+    conn = await aiosqlite.connect("src/data/conversations.sqlite")
+    memory = AsyncSqliteSaver(conn=conn)
+
+    def should_continue(state):
+        last_message = state["messages"][-1]
+        if hasattr(last_message, 'tool_calls') and last_message.tool_calls:
+            return "call_tools"
+        else:
+            return "update_memory"
+
+    workflow = StateGraph(AgentState)
+
+    # Adicionar nós
+    workflow.add_node("call_model", call_model)
+    workflow.add_node("call_tools", call_tools_and_update_state)
+    workflow.add_node("update_memory", update_long_term_memory)
+
+    # Ponto de entrada
+    workflow.set_entry_point("call_model")
+
+    # Adicionar arestas
+    workflow.add_conditional_edges(
+        "call_model",
+        should_continue,
+        {
+            "call_tools": "call_tools",
+            "update_memory": "update_memory",
+        }
+    )
+    workflow.add_edge("call_tools", "call_model")
+    workflow.add_edge("update_memory", END)
+
+
+
+    # Compilar grafo
+    app_graph = workflow.compile(checkpointer=memory)
+
+    return app_graph
