@@ -96,27 +96,21 @@ def update_long_term_memory(state):
             f"{msg.type}: {msg.content}" for msg in state["messages"]
         )
         
-        print("DEBUG: Histórico de chat para extração:", chat_history_str)
 
         # Prompt para instruir o LLM a extrair preferências
-        print("DEBUG: Carregando prompt 'memory_extration'...")
-        prompt_template = LLMFactory().get_prompt("memory_extraction")
-        print("DEBUG: Prompt carregado com sucesso.")
+        mem_extraction_template = LLMFactory().get_prompt("memory_extraction")
 
         # Cria uma cadeia para extrair as preferências
-        extraction_chain = prompt_template | memory_extraction_llm
+        extraction_chain = mem_extraction_template | memory_extraction_llm
         
-        print("DEBUG: Invocando cadeia de extração de memória...")
         # Invoca a cadeia com o histórico
         response_obj = extraction_chain.invoke({"chat_history": chat_history_str})
         extracted_info = response_obj.content
-        print("DEBUG: Cadeia de extração concluída com sucesso.")
         
         print(f"Informação extraída para memória: {extracted_info}")
 
         # Se o LLM extrair uma preferência, salvar no banco de dados vetorial
         if extracted_info and "N/A" not in extracted_info:
-            print(f"DEBUG: Adicionando texto '{extracted_info}' ao vector store...")
             vector_store.add_texts(
                 texts=[extracted_info],
                 metadatas=[{"user_id": user_id}]
