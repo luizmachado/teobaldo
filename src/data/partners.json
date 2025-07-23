@@ -71,6 +71,246 @@
       },
       "horarioFuncionamento": "07:00 - 23:00",
       "servicosAceitos": ["TAG"]
+    },
+    {
+      "idEstabelecimento": 201,
+      "nome": "Posto Alfa",
+      "tipo": "Posto de Combustível",
+      "localizacao": {
+        "endereco": "R. da Rota 1, Araguaína - TO, 77801-000",
+        "latitude": -7.1910,
+        "longitude": -48.2080
+      },
+      "horarioFuncionamento": "24 horas",
+      "servicosAceitos": ["TAG", "Multiabastece_Cartao"]
+    },
+    {
+      "idEstabelecimento": 202,
+      "nome": "Mercado Rota Norte",
+      "tipo": "Mercado",
+      "localizacao": {
+        "endereco": "Av. da Rota Norte, Araguaína - TO, 77801-200",
+        "latitude": -7.1925,
+        "longitude": -48.2105
+      },
+      "horarioFuncionamento": "06:00 - 22:00",
+      "servicosAceitos": ["TAG"]
+    },
+    {
+      "idEstabelecimento": 203,
+      "nome": "Restaurante Caminho Real",
+      "tipo": "Restaurante",
+      "localizacao": {
+        "endereco": "R. do Caminho Real, Araguaína - TO, 77801-300",
+        "latitude": -7.1940,
+        "longitude": -48.2130
+      },
+      "horarioFuncionamento": "11:00 - 23:00",
+      "servicosAceitos": ["Multiabastece_QRCode"]
+    },
+    {
+      "idEstabelecimento": 204,
+      "nome": "Clínica Rota Saúde",
+      "tipo": "Clínica",
+      "localizacao": {
+        "endereco": "Av. Saúde Rota, Araguaína - TO, 77801-400",
+        "latitude": -7.1955,
+        "longitude": -48.2155
+      },
+      "horarioFuncionamento": "07:00 - 19:00",
+      "servicosAceitos": []
+    },
+    {
+      "idEstabelecimento": 205,
+      "nome": "Oficina Auto Rota",
+      "tipo": "Oficina Mecânica",
+      "localizacao": {
+        "endereco": "R. da Oficina Rota, Araguaína - TO, 77801-500",
+        "latitude": -7.1970,
+        "longitude": -48.2180
+      },
+      "horarioFuncionamento": "08:00 - 18:00",
+      "servicosAceitos": ["TAG", "Multiabastece_Cartao", "Multiabastece_QRCode"]
+    },
+    {
+      "idEstabelecimento": 206,
+      "nome": "Farmácia Rota Vida",
+      "tipo": "Farmácia",
+      "localizacao": {
+        "endereco": "Av. Vida Rota, Araguaína - TO, 77801-600",
+        "latitude": -7.1985,
+        "longitude": -48.2205
+      },
+      "horarioFuncionamento": "24 horas",
+      "servicosAceitos": ["TAG"]
+    },
+    {
+      "idEstabelecimento": 207,
+      "nome": "Padaria Rota Pão",
+      "tipo": "Padaria",
+      "localizacao": {
+        "endereco": "R. Pão Rota, Araguaína - TO, 77801-700",
+        "latitude": -7.2000,
+        "longitude": -48.2230
+      },
+      "horarioFuncionamento": "05:00 - 21:00",
+      "servicosAceitos": ["Multiabastece_QRCode"]
+    },
+    {
+      "idEstabelecimento": 208,
+      "nome": "Café Estrada Rota",
+      "tipo": "Café",
+      "localizacao": {
+        "endereco": "Av. Café Rota, Araguaína - TO, 77801-800",
+        "latitude": -7.2015,
+        "longitude": -48.2255
+      },
+      "horarioFuncionamento": "06:00 - 20:00",
+      "servicosAceitos": ["TAG", "Multiabastece_Cartao"]
+    },
+    {
+      "idEstabelecimento": 209,
+      "nome": "Petshop Rota Bicho",
+      "tipo": "Petshop",
+      "localizacao": {
+        "endereco": "R. Bicho Rota, Araguaína - TO, 77801-900",
+        "latitude": -7.2030,
+        "longitude": -48.2280
+      },
+      "horarioFuncionamento": "08:00 - 20:00",
+      "servicosAceitos": []
+    },
+    {
+      "idEstabelecimento": 210,
+      "nome": "Supermercado Rota",
+      "tipo": "Supermercado",
+      "localizacao": {
+        "endereco": "Av. Super Rota, Araguaína - TO, 77802-000",
+        "latitude": -7.2045,
+        "longitude": -48.2305
+      },
+      "horarioFuncionamento": "07:00 - 22:00",
+      "servicosAceitos": ["TAG", "Multiabastece_QRCode"]
+    },
+    {
+      "idEstabelecimento": 211,
+      "nome": "Banco Rota",
+      "tipo": "Banco",
+      "localizacao": {
+        "endereco": "R. Banco Rota, Araguaína - TO, 77802-100",
+        "latitude": -7.2060,
+        "longitude": -48.2330
+      },
+      "horarioFuncionamento": "09:00 - 16:00",
+      "servicosAceitos": ["TAG"]
+    },
+    {
+      "idEstabelecimento": 212,
+      "nome": "Livraria Rota Letras",
+      "tipo": "Livraria",
+      "localizacao": {
+        "endereco": "Av. Letras Rota, Araguaína - TO, 77802-200",
+        "latitude": -7.2075,
+        "longitude": -48.2355
+      },
+      "horarioFuncionamento": "09:00 - 21:00",
+      "servicosAceitos": ["Multiabastece_Cartao"]
+    },
+    {
+      "idEstabelecimento": 213,
+      "nome": "Academia Rota Fitness",
+      "tipo": "Academia",
+      "localizacao": {
+        "endereco": "R. Fitness Rota, Araguaína - TO, 77802-300",
+        "latitude": -7.2090,
+        "longitude": -48.2380
+      },
+      "horarioFuncionamento": "05:00 - 23:00",
+      "servicosAceitos": []
+    },
+    {
+      "idEstabelecimento": 214,
+      "nome": "Confeitaria Rota Doce",
+      "tipo": "Confeitaria",
+      "localizacao": {
+        "endereco": "Av. Doce Rota, Araguaína - TO, 77802-400",
+        "latitude": -7.2105,
+        "longitude": -48.2405
+      },
+      "horarioFuncionamento": "06:00 - 20:00",
+      "servicosAceitos": ["Multiabastece_QRCode"]
+    },
+    {
+      "idEstabelecimento": 215,
+      "nome": "Salão Rota Beleza",
+      "tipo": "Salão de Beleza",
+      "localizacao": {
+        "endereco": "R. Beleza Rota, Araguaína - TO, 77802-500",
+        "latitude": -7.2120,
+        "longitude": -48.2430
+      },
+      "horarioFuncionamento": "08:00 - 19:00",
+      "servicosAceitos": ["TAG", "Multiabastece_Cartao"]
+    },
+    {
+      "idEstabelecimento": 216,
+      "nome": "Laboratório Rota Exames",
+      "tipo": "Laboratório",
+      "localizacao": {
+        "endereco": "Av. Exames Rota, Araguaína - TO, 77802-600",
+        "latitude": -7.2135,
+        "longitude": -48.2455
+      },
+      "horarioFuncionamento": "07:00 - 17:00",
+      "servicosAceitos": []
+    },
+    {
+      "idEstabelecimento": 217,
+      "nome": "Oficina Rota Bicicletas",
+      "tipo": "Oficina",
+      "localizacao": {
+        "endereco": "R. Bike Rota, Araguaína - TO, 77802-700",
+        "latitude": -7.2150,
+        "longitude": -48.2480
+      },
+      "horarioFuncionamento": "08:00 - 18:00",
+      "servicosAceitos": ["TAG"]
+    },
+    {
+      "idEstabelecimento": 218,
+      "nome": "Pizzaria Rota Pizza",
+      "tipo": "Pizzaria",
+      "localizacao": {
+        "endereco": "Av. Pizza Rota, Araguaína - TO, 77802-800",
+        "latitude": -7.2165,
+        "longitude": -48.2505
+      },
+      "horarioFuncionamento": "17:00 - 00:00",
+      "servicosAceitos": ["Multiabastece_Cartao", "Multiabastece_QRCode"]
+    },
+    {
+      "idEstabelecimento": 219,
+      "nome": "Estacionamento Rota Park",
+      "tipo": "Estacionamento",
+      "localizacao": {
+        "endereco": "R. Park Rota, Araguaína - TO, 77802-900",
+        "latitude": -7.2180,
+        "longitude": -48.2530
+      },
+      "horarioFuncionamento": "00:00 - 23:59",
+      "servicosAceitos": ["TAG"]
+    },
+    {
+      "idEstabelecimento": 220,
+      "nome": "Centro Automotivo Rota Car",
+      "tipo": "Centro Automotivo",
+      "localizacao": {
+        "endereco": "Av. Car Rota, Araguaína - TO, 77803-000",
+        "latitude": -7.2195,
+        "longitude": -48.2555
+      },
+      "horarioFuncionamento": "08:00 - 18:00",
+      "servicosAceitos": ["TAG", "Multiabastece_Cartao"]
     }
   ]
 }
