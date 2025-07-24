@@ -1,11 +1,15 @@
 from fastapi import FastAPI
-from app.api.v1 import chat
+from app.api.v1 import chat, auth
 
-app = FastAPI(title="SuperApp Sem Parar - Teobaldo")
+app = FastAPI(
+    title="Teobaldo - Assistente de Viagem",
+    description="API para interagir com o assistente de viagem inteligente.",
+    version="1.0.0"
+)
 
-# Inclui o router da API
+app.include_router(auth.router, prefix="/api/v1/auth", tags=["Authentication"])
 app.include_router(chat.router, prefix="/api/v1", tags=["Chat"])
 
 @app.get("/", tags=["Root"])
 def read_root():
-    return {"message": f"Teobaldo - Seu assistente de viagens Sem Parar"}
+    return {"message": "Bem-vindo ao Teobaldo !"}

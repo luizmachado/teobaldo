@@ -3,11 +3,13 @@ from pydantic import BaseModel, Field
 from app.agent.graph import get_agent_executor
 from langchain_core.messages import HumanMessage
 import traceback
+from app.security.security import get_current_user
+from app.schemas.user import User
 
 router = APIRouter()
 
 class ChatRequest(BaseModel):
-    user_id: str = Field(..., description="Identificador único do usuário.")
+    user_id: str = Field(..., description="Identificador único do usuário (documento).")
     message: str = Field(..., description="Mensagem do usuário para o Teobaldo.")
     thread_id: str = Field(..., description="Identificador da sessão de conversa para manter o histórico.")
 
@@ -16,16 +18,20 @@ class ChatResponse(BaseModel):
     thread_id: str
 
 @router.post("/chat", response_model=ChatResponse)
-async def chat_endpoint(request: ChatRequest, agent_executor=Depends(get_agent_executor)):
-    """ Endpoint para interagir com o Teobaldo """
+async def chat_endpoint(
+    request: ChatRequest,
+    agent_executor=Depends(get_agent_executor),
+    current_user: User = Depends(get_current_user)
+):
+    """ Endpoint para interagir com o Teobaldo. Requer autenticação. """
+    if request.user_id != current_user.documento:
+        raise HTTPException(status_code=403, detail="Operação não permitida para esse usuário.")
+
     try:
         config = {"configurable": {"thread_id": request.thread_id}}
         inputs = {"messages": [HumanMessage(content=request.message)], "user_id": request.user_id}
-
-        # Use 'ainvoke' para obter o resultado final diretamente
+        
         final_state = await agent_executor.ainvoke(inputs, config=config)
-
-        # Extraia a última mensagem da lista de mensagens no estado final
         final_response = final_state.get("messages", [])[-1].content
 
         if not final_response:
