@@ -43,7 +43,6 @@ def get_route_and_polyline(origin, destination):
         
         data = response.json()
         
-        # OK' significa que encontrou uma rota.
         if data["status"] != "OK":
             return {"error": f"Não foi possível encontrar uma rota. Status da API: {data.get('status')}"}
 
@@ -63,9 +62,30 @@ def get_route_and_polyline(origin, destination):
         
         # Extrai a polyline codificada
         polyline = route["overview_polyline"]["points"]
-        
-        return {"origin": origin, "destination": destination, "summary": summary, "polyline": polyline}
 
+        # URL da API Maps Embed
+        embed_base_url = "https://www.google.com/maps/embed/v1/directions?"
+
+        embed_params = {
+            "key": maps_api_key,
+            "origin": origin,
+            "destination": destination,
+            "mode": "driving",
+            "units": "metric",
+            "language": "pt-BR"
+        }
+        
+        # Codifica os parâmetros e constrói a URL final
+        embed_map_url = embed_base_url + urlencode(embed_params)
+
+        return {
+            "origin": origin, 
+            "destination": destination, 
+            "summary": summary, 
+            "polyline": polyline,
+            "embed_map_url": embed_map_url
+        }
+        
     except requests.exceptions.RequestException as e:
         return {"error": f"Erro de conexão ao chamar a API do Google Maps: {e}"}
     except (KeyError, IndexError):
