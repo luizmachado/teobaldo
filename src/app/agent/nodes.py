@@ -65,13 +65,14 @@ def call_tools_and_update_state(state: AgentState) -> dict:
                 updates["route_info"] = observation
                 updates["origin"] = observation.get("origin")
                 updates["destination"] = observation.get("destination")
+                updates["embed_map_url"] = observation.get("embed_map_url")
                 
                 # Resumo legível
                 summary = observation.get("summary", "N/A")
                 polyline = observation.get("polyline", "N/A")
                 
                 # Usamos um formato claro para que o LLM possa extrair a polyline facilmente.
-                tool_content = f"Resumo da Rota: {summary}\nPolyline da Rota: {polyline}"
+                tool_content = f"Resumo da Rota: {summary}\nPolyline da Rota: {polyline}\nEmbed URL: {observation.get('embed_map_url', 'N/A')}"
             else:
                 tool_content = str(observation)
 

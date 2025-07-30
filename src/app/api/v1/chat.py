@@ -16,6 +16,8 @@ class ChatRequest(BaseModel):
 class ChatResponse(BaseModel):
     response: str
     thread_id: str
+    embed_map_url: Optional[str] = None
+
 
 @router.post("/chat", response_model=ChatResponse)
 async def chat_endpoint(
@@ -33,11 +35,13 @@ async def chat_endpoint(
         
         final_state = await agent_executor.ainvoke(inputs, config=config)
         final_response = final_state.get("messages", [])[-1].content
+        embed_map_url = final_state.get("embed_map_url")
+
 
         if not final_response:
             raise HTTPException(status_code=500, detail="O agente não produziu uma resposta final com conteúdo.")
 
-        return ChatResponse(response=final_response, thread_id=request.thread_id)
+        return ChatResponse(response=final_response, thread_id=request.thread_id, embed_map_url=embed_map_url)
 
     except Exception as e:
         traceback.print_exc()

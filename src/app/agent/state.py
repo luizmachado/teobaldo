@@ -12,4 +12,5 @@ class AgentState(TypedDict):
     origin: NotRequired[str]
     destination: NotRequired[str]
     route_info: NotRequired[dict]
+    embed_map_url: NotRequired[str]
     retrieved_context: NotRequired[str]
