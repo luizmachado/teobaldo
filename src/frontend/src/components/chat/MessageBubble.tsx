@@ -1,0 +1,32 @@
+import type { Message } from "@/lib/types";
+import { cn } from "@/lib/utils";
+import { Bot, User } from "lucide-react";
+import { TypingIndicator } from "./TypingIndicator";
+
+interface MessageBubbleProps {
+  message: Message;
+}
+
+export function MessageBubble({ message }: MessageBubbleProps) {
+  const isUser = message.role === 'user';
+  const isLoading = message.role === 'loading';
+
+  const bubbleClasses = cn(
+    "flex w-fit max-w-xs md:max-w-md lg:max-w-lg flex-row items-end gap-2 rounded-2xl px-4 py-3 text-white animate-slide-in-bottom",
+    isUser ? "ml-auto rounded-br-none bg-primary" : "mr-auto rounded-bl-none bg-accent",
+    isLoading && "bg-muted p-2"
+  );
+  
+  const iconClasses = "flex h-8 w-8 items-center justify-center rounded-full text-white";
+
+  return (
+    <div className={cn("flex items-start gap-3", isUser && "flex-row-reverse")}>
+       <div className={cn(iconClasses, isUser ? "bg-accent" : "bg-primary")}>
+        {isUser ? <User size={20} /> : <Bot size={20} />}
+      </div>
+      <div className={bubbleClasses} style={{ animationFillMode: 'backwards' }}>
+        {isLoading ? <TypingIndicator /> : <p className="text-base text-primary-foreground">{message.content}</p>}
+      </div>
+    </div>
+  );
+}
