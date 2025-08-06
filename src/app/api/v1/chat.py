@@ -5,6 +5,8 @@ from langchain_core.messages import HumanMessage
 import traceback
 from app.security.security import get_current_user
 from app.schemas.user import User
+from typing import Optional
+
 
 router = APIRouter()
 

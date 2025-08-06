@@ -2,6 +2,9 @@ import os
 import requests
 import json
 from langchain_core.tools import tool
+from urllib.parse import urlencode
+
+
 
 # Chave Routes API
 maps_api_key = os.environ.get("GOOGLE_MAPS_API_KEY")
@@ -99,7 +102,7 @@ if __name__ == "__main__":
     destino_teste = "Pinheiros, SP"
     print(f"\nBuscando rota de '{origem_teste}' para '{destino_teste}'...")
 
-    resultado = get_route_and_polyline_metric.invoke({
+    resultado = get_route_and_polyline({
     "origin": origem_teste, 
     "destination": destino_teste
     })
