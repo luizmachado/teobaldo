@@ -1,10 +1,13 @@
 from fastapi import APIRouter, Depends, HTTPException
 from pydantic import BaseModel, Field
+from typing import Optional
 from app.agent.graph import get_agent_executor
 from langchain_core.messages import HumanMessage
 import traceback
 from app.security.security import get_current_user
 from app.schemas.user import User
+from typing import Optional
+
 
 router = APIRouter()
 
