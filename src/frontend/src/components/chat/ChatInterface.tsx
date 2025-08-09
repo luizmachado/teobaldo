@@ -34,10 +34,8 @@ export function ChatInterface() {
     setMessages((prev) => [...prev, userMessage, loadingMessage]);
     setIsLoading(true);
 
-    const currentThreadId = threadId ?? crypto.randomUUID();
-    if (!threadId) {
-      setThreadId(currentThreadId);
-    }
+    const payloadThreadId = threadId ?? undefined;
+
 
     try {
       const response = await fetch(`${API_BASE_URL}/chat`, {
@@ -49,7 +47,7 @@ export function ChatInterface() {
         body: JSON.stringify({
           user_id: documento,
           message: content,
-          thread_id: currentThreadId,
+          thread_id: payloadThreadId,
         }),
       });
 
@@ -59,7 +57,17 @@ export function ChatInterface() {
       }
       
       const data = await response.json();
-      const aiMessage: Message = { id: crypto.randomUUID(), role: 'ai', content: data.response };
+      
+      if(data.thread_id && !threadId) {
+        setThreadId(data.thread_id);
+      }
+
+      const aiMessage: Message = { 
+        id: crypto.randomUUID(), 
+        role: 'ai', 
+        content: data.response,
+        embed_map_url: data.embed_map_url,
+      };
       
       setMessages((prev) => [...prev.slice(0, -1), aiMessage]);
 
