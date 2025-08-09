@@ -7,6 +7,7 @@ import traceback
 from app.security.security import get_current_user
 from app.schemas.user import User
 from typing import Optional
+import uuid
 
 
 router = APIRouter()
@@ -14,7 +15,7 @@ router = APIRouter()
 class ChatRequest(BaseModel):
     user_id: str = Field(..., description="Identificador único do usuário (documento).")
     message: str = Field(..., description="Mensagem do usuário para o Teobaldo.")
-    thread_id: str = Field(..., description="Identificador da sessão de conversa para manter o histórico.")
+    thread_id: Optional[str] = None
 
 class ChatResponse(BaseModel):
     response: str
@@ -33,18 +34,20 @@ async def chat_endpoint(
         raise HTTPException(status_code=403, detail="Operação não permitida para esse usuário.")
 
     try:
-        config = {"configurable": {"thread_id": request.thread_id}}
+        thread_id_to_use = request.thread_id or str(uuid.uuid4())
+
+        config = {"configurable": {"thread_id": thread_id_to_use}}
         inputs = {"messages": [HumanMessage(content=request.message)], "user_id": request.user_id}
         
         final_state = await agent_executor.ainvoke(inputs, config=config)
         final_response = final_state.get("messages", [])[-1].content
         embed_map_url = final_state.get("embed_map_url")
 
-
         if not final_response:
             raise HTTPException(status_code=500, detail="O agente não produziu uma resposta final com conteúdo.")
 
-        return ChatResponse(response=final_response, thread_id=request.thread_id, embed_map_url=embed_map_url)
+        return ChatResponse(response=final_response, thread_id=thread_id_to_use, embed_map_url=embed_map_url)
+
 
     except Exception as e:
         traceback.print_exc()
