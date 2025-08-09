@@ -1,5 +1,6 @@
 from fastapi import APIRouter, Depends, HTTPException
 from pydantic import BaseModel, Field
+from typing import Optional
 from app.agent.graph import get_agent_executor
 from langchain_core.messages import HumanMessage
 import traceback
