@@ -1,4 +1,5 @@
 import os
+import traceback
 from typing import List
 from langchain_core.messages import AIMessage, BaseMessage, ToolMessage
 from langchain_community.embeddings import OllamaEmbeddings
@@ -39,6 +40,39 @@ def call_model(state):
     response = llm_with_tools.invoke(messages)
     return {"messages": [response]}
 
+def retrieve_long_term_memory(state: AgentState) -> dict:
+    """ Nó de Recuperação de Memória de Longo Prazo """
+
+    print("---NODE: RETRIEVE_LONG_TERM_MEMORY---")
+
+    try:
+        user_id = state.get("user_id")
+        messages = state.get("messages", [])
+
+        if not user_id or not messages:
+            print("AVISO: user_id ou mensagens não encontrados. Pulando recuperação de memória.")
+            return {"retrieved_context": ""}
+
+        # Usar a última mensagem como query
+        user_query = messages[-1].content
+
+        # Filtrar no ChromaDB
+        retrieved_docs = retriever.invoke(
+                user_query,
+                config={"configurable": {"search_kwargs": {"filter": {"user_id": user_id}}}}
+                )
+        if retrieved_docs:
+            context_str = "\n".join([doc.page_content for doc in retrieved_docs])
+            print(f"SUCESSO: Memória recuperada para o usuário '{user_id}':\n{context_str}")
+            return {"retrieved_context": context_str}
+        else:
+            print(f"INFO: Nenhuma memória de longo prazo encontrada para a query do usuário '{user_id}'.")
+            return {"retrieved_context": ""}
+
+    except Exception as e:
+        print("--- ERRO CRÍTICO EM RETRIEVE_LONG_TERM_MEMORY ---")
+        traceback.print_exc()
+        return {"retrieved_context": ""}
 
 def call_tools_and_update_state(state: AgentState) -> dict:
     """ Nó de Chamada de Tools """
@@ -119,8 +153,6 @@ def update_long_term_memory(state):
             print(f"SUCESSO: Preferência salva para o usuário '{user_id}'.")
 
     except Exception as e:
-        # ISSO IRÁ CAPTURAR O ERRO REAL E IMPRIMI-LO NO TERMINAL
-        import traceback
         print("--- ERRO CRÍTICO EM UPDATE_LONG_TERM_MEMORY ---")
         print(f"TIPO DE EXCEÇÃO: {type(e).__name__}")
         print(f"MENSAGEM DE ERRO: {e}")
