@@ -3,7 +3,7 @@ import traceback
 from typing import List
 from langchain_core.messages import AIMessage, BaseMessage, ToolMessage
 from langchain_community.embeddings import OllamaEmbeddings
-from langchain_core.prompts import ChatPromptTemplate
+from langchain_core.prompts import ChatPromptTemplate, MessagesPlaceholder
 from langchain_core.runnables import Runnable
 from langgraph.prebuilt import ToolNode
 from langchain_chroma import Chroma
@@ -37,7 +37,21 @@ def call_model(state):
 
     print("---NODE: CALL_MODEL---")
     messages = state["messages"]
-    response = llm_with_tools.invoke(messages)
+    retrieve_mem_template = LLMFactory().get_prompt("agent_system_prompt")
+    retrieved_context = state.get("retrieved_context", "Nenhuma preferência conhecida.")
+    # Formatar prompt
+    formatted_prompt = retrieve_mem_template.format(
+            retrieved_context=retrieved_context
+            )
+
+    agent_prompt = ChatPromptTemplate.from_messages([
+        ("system", formatted_prompt),
+        MessagesPlaceholder(variable_name="messages")
+    ])
+
+
+    chain = agent_prompt | llm_with_tools
+    response = chain.invoke(messages)
     return {"messages": [response]}
 
 def retrieve_long_term_memory(state: AgentState) -> dict:
@@ -139,8 +153,9 @@ def update_long_term_memory(state):
         )
         
 
-        # Prompt para instruir o LLM a extrair preferências
+        # Prompts para instruir o LLM
         mem_extraction_template = LLMFactory().get_prompt("memory_extraction")
+
 
         # Cria uma cadeia para extrair as preferências
         extraction_chain = mem_extraction_template | memory_extraction_llm
