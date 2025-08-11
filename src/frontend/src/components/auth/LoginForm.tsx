@@ -19,7 +19,7 @@ import { useAuth } from "@/hooks/useAuth";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 
 const formSchema = z.object({
-  documento: z.string().min(1, { message: "O documento é obrigatório." }),
+  documento: z.string().min(1, { message: "O nome de usuário é obrigatório." }),
 });
 
 export function LoginForm() {
@@ -53,10 +53,10 @@ export function LoginForm() {
               name="documento"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Documento</FormLabel>
+                  <FormLabel>Usuário</FormLabel>
                   <FormControl>
                     <Input
-                      placeholder="Digite seu documento"
+                      placeholder="Digite seu usuário"
                       {...field}
                       disabled={isLoading}
                     />
