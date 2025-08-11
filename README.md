@@ -15,7 +15,7 @@ O principal objetivo deste projeto é demonstrar habilidades técnicas em desenv
 
 ## 🎞️ Demonstração
 
-![GIF de Demonstração do Teobaldo](https://s14.gifyu.com/images/bNlw1.gif)
+[![Demonstração do Teobaldo](https://s14.gifyu.com/images/bNlw1.gif)](https://gifyu.com/image/bNlw1)
 
 
 ## ✨ Recursos Principais
@@ -62,6 +62,8 @@ O estado é passado entre os nós do grafo e contém todas as informações nece
 ## 📁 Estrutura do Projeto
 
 A estrutura do projeto foi organizada para separar claramente as responsabilidades entre backend, frontend e dados.
+
+```
 .
 ├── src
 │   ├── app/                      # Lógica principal do backend (FastAPI)
@@ -93,6 +95,8 @@ A estrutura do projeto foi organizada para separar claramente as responsabilidad
 │           └── lib/
 │               └── types.ts      # Definições de tipos TypeScript
 └── ...
+
+```
 
 
 ## 🚀 Como Executar Localmente
