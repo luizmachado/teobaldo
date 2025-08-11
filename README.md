@@ -178,4 +178,4 @@ Abra seu navegador e acesse `http://localhost:3000`. Você deverá ver a interfa
 
 Luiz Augusto Machado da Silva – luizmachado.to@gmail.com
 
-Link do Projeto: `https://github.com/seu-usuario/seu-repositorio`
+Link do Projeto: `https://github.com/luizmachado/teobaldo
