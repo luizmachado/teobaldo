@@ -2,6 +2,7 @@ import type { Message } from "@/lib/types";
 import { cn } from "@/lib/utils";
 import { Bot, User } from "lucide-react";
 import { TypingIndicator } from "./TypingIndicator";
+import ReactMarkdown from 'react-markdown';
 
 interface MessageBubbleProps {
   message: Message;
@@ -29,7 +30,11 @@ export function MessageBubble({ message }: MessageBubbleProps) {
           <TypingIndicator />
         ) : (
           <>
-            <p className="text-base text-primary-foreground">{message.content}</p>
+            {/* 2. Substitua o <p> pelo componente ReactMarkdown */}
+            <div className="prose prose-invert text-primary-foreground max-w-none">
+              <ReactMarkdown>{message.content}</ReactMarkdown>
+            </div>
+            
             {message.embed_map_url && (
               <div className="mt-2 w-full overflow-hidden rounded-lg border">
                 <iframe
