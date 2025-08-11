@@ -45,13 +45,19 @@ def retrieve_long_term_memory(state: AgentState) -> dict:
 
     print("---NODE: RETRIEVE_LONG_TERM_MEMORY---")
 
+    updates = {
+        "embed_map_url": None
+    }
+
+
     try:
         user_id = state.get("user_id")
         messages = state.get("messages", [])
 
         if not user_id or not messages:
             print("AVISO: user_id ou mensagens não encontrados. Pulando recuperação de memória.")
-            return {"retrieved_context": ""}
+            updates["retrieved_context"] = ""
+            return updates
 
         # Usar a última mensagem como query
         user_query = messages[-1].content
@@ -64,15 +70,18 @@ def retrieve_long_term_memory(state: AgentState) -> dict:
         if retrieved_docs:
             context_str = "\n".join([doc.page_content for doc in retrieved_docs])
             print(f"SUCESSO: Memória recuperada para o usuário '{user_id}':\n{context_str}")
-            return {"retrieved_context": context_str}
+            updates["retrieved_context"] = context_str
         else:
             print(f"INFO: Nenhuma memória de longo prazo encontrada para a query do usuário '{user_id}'.")
-            return {"retrieved_context": ""}
+            updates["retrieved_context"] = ""
+
+        return updates
 
     except Exception as e:
         print("--- ERRO CRÍTICO EM RETRIEVE_LONG_TERM_MEMORY ---")
         traceback.print_exc()
-        return {"retrieved_context": ""}
+        updates["retrieved_context"] = ""
+        return updates
 
 def call_tools_and_update_state(state: AgentState) -> dict:
     """ Nó de Chamada de Tools """
@@ -104,9 +113,7 @@ def call_tools_and_update_state(state: AgentState) -> dict:
                 # Resumo legível
                 summary = observation.get("summary", "N/A")
                 polyline = observation.get("polyline", "N/A")
-                
-                # Usamos um formato claro para que o LLM possa extrair a polyline facilmente.
-                tool_content = f"Resumo da Rota: {summary}\nPolyline da Rota: {polyline}\nEmbed URL: {observation.get('embed_map_url', 'N/A')}"
+                tool_content = f"Resumo da rota: {summary}.\nPolyline da rota: {polyline}"
             else:
                 tool_content = str(observation)
 
